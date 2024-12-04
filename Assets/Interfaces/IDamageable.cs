@@ -4,14 +4,8 @@ namespace Interfaces
 {
     public interface IDamageable
     {
-        public virtual void TakeDamage(float amount)
-        {
-            
-        }
+        public abstract void TakeDamage(float amount);
 
-        public virtual void Die()
-        {
-            
-        }
+        public abstract void Die();
     }
 }

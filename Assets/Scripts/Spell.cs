@@ -27,6 +27,4 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
     {
         throw new System.NotImplementedException();
     }
-
-    
 }
