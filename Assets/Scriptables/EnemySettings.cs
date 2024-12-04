@@ -7,5 +7,6 @@ namespace Scriptables
     {
         public float speed;
         public float health;
+        public int damage;
     }
 }

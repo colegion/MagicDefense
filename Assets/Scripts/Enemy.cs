@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Helpers;
 using Interfaces;
 using UnityEngine;
@@ -24,10 +26,20 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     {
         
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.TryGetComponent(out Tower tower))
+        {
+            tower.TakeDamage(_config.enemySettings.damage);
+            Die();
+        }
+    }
+
     public void Move(Transform target)
     {
-        throw new System.NotImplementedException();
+        var moveDuration = Utilities.BASE_MOVE_DURATION / _config.enemySettings.speed;
+        transform.DOMove(target.position, moveDuration).SetEase(Ease.Linear);
     }
 
     public void TakeDamage(float amount)
