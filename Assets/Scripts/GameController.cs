@@ -37,13 +37,11 @@ public class GameController : MonoBehaviour
     {
         RemoveListeners();
     }
-
-
+    
     public Enemy GetEnemy()
     {
         return poolController.GetEnemy();
     }
-    
     
     public Spell GetSpell(SpellType type)
     {
