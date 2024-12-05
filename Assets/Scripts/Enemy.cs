@@ -24,8 +24,14 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         _config = config;
         enemyVisual.mesh = _config.enemyMesh;
         _currentHealth = _config.enemySettings.health;
+        ConfigureScale();
         ConfigureColliderSize();
         EnableObject();
+    }
+    
+    private void ConfigureScale()
+    {
+        transform.localScale = _config.enemySettings.scale;
     }
 
     private void ConfigureColliderSize()
@@ -81,6 +87,8 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         _currentHealth = 0;
         enemyVisual.mesh = null;
         _config = null;
+        enemyCollider.size = Vector3.one;
+        transform.localScale = Vector3.one;
         gameObject.SetActive(false);
     }
 }

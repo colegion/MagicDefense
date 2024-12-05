@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private Transform towerTransform;
     [SerializeField] private PoolController poolController;
 
     private static GameController _instance;
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour
     }
 
     private List<Enemy> _onScreenEnemies = new List<Enemy>();
+    private bool _gameOver;
 
     private void OnEnable()
     {
@@ -82,6 +84,21 @@ public class GameController : MonoBehaviour
     private void OnEnemyDie(Enemy enemy)
     {
         _onScreenEnemies.Remove(enemy);
+    }
+
+    public Transform GetTowerTransform()
+    {
+        return towerTransform;
+    }
+    
+    public void SetGameOver(bool value)
+    {
+        _gameOver = value;
+    }
+
+    public bool IsGameOver()
+    {
+        return _gameOver;
     }
 
     private void AddListeners()

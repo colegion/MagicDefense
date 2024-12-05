@@ -1,18 +1,60 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Helpers;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<EnemyConfig> enemies;
+    
+    private List<Coroutine> _enemySpawnRoutines = new List<Coroutine>();
+
+    private void Start()
     {
-        
+        InitializeEnemyConfigs();
+        StartSpawning();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializeEnemyConfigs()
     {
+        foreach (var config in enemies)
+        {
+            config.enemySettings.Initialize();
+        }
+    }
+
+    private void StartSpawning()
+    {
+        for (int i = 0; i < Enum.GetValues(typeof(EnemyType)).Length; i++)
+        {
+            var tempRoutine = StartCoroutine(SpawnEnemy((EnemyType)i));
+            _enemySpawnRoutines.Add(tempRoutine);
+        }
+    }
+    
+
+    private IEnumerator SpawnEnemy(EnemyType type)
+    {
+        while (!GameController.Instance.IsGameOver())
+        {
+            var enemy = GameController.Instance.GetEnemy();
+            var config = enemies.Find(e => e.enemyType == type);
+            enemy.ConfigureSelf(config);
+            enemy.Move(GameController.Instance.GetTowerTransform());
+            yield return new WaitForSeconds(config.enemySettings.currentSpawnCooldown);
+            
+        }
         
+        StopSpawning();
+    }
+
+    private void StopSpawning()
+    {
+        foreach (var routine in _enemySpawnRoutines)
+        {
+            if(routine != null)
+                StopCoroutine(routine);
+        }
     }
 }

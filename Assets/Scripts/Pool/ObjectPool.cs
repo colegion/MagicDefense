@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public abstract class ObjectPool<T> where T : IPoolable
+namespace Pool
+{
+    public abstract class ObjectPool<T> where T : IPoolable
     {
         protected Queue<T> pool = new Queue<T>();
         protected GameObject prefab;
@@ -62,3 +62,4 @@ public abstract class ObjectPool<T> where T : IPoolable
             pool.Enqueue(obj);
         }
     }
+}

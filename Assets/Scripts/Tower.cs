@@ -10,9 +10,13 @@ public class Tower : MonoBehaviour, IDamageable
 {
     [SerializeField] private List<SpellConfig> spells;
     [SerializeField] private float health;
-    private bool _isGameOver;
     private List<Coroutine> _spellRoutines;
-    
+
+    private void Start()
+    {
+        ConfigureSelf();
+    }
+
     public void ConfigureSelf()
     {
         _spellRoutines = new List<Coroutine>();
@@ -30,9 +34,12 @@ public class Tower : MonoBehaviour, IDamageable
 
     private IEnumerator CastSpell(SpellType type)
     {
+        while (GameController.Instance.GetOnScreenEnemies().Count == 0)
+            yield return null;
+        
         var spawnCount = type == SpellType.Fireball ? 1 : GameController.Instance.GetOnScreenEnemies().Count;
         var config = spells.Find(s => s.spellType == type);
-        while (!_isGameOver)
+        while (!GameController.Instance.IsGameOver())
         {
             for (int i = 0; i < spawnCount; i++)
             {
@@ -53,7 +60,7 @@ public class Tower : MonoBehaviour, IDamageable
         {
             StopCoroutines();
             Die();
-            _isGameOver = true;
+            GameController.Instance.SetGameOver(true);
         }
     }
 

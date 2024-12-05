@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scriptables
 {
@@ -8,6 +9,19 @@ namespace Scriptables
         public float speed;
         public float health;
         public int damage;
+        public float defaultSpawnCooldown;
+        public float currentSpawnCooldown;
+        public Vector3 scale;
         public Vector3 colliderSize;
+
+        public void Initialize()
+        {
+            currentSpawnCooldown = defaultSpawnCooldown;
+        }
+        
+        public void ReduceSpawnCooldown(float amount)
+        {
+            currentSpawnCooldown -= amount;
+        }
     }
 }

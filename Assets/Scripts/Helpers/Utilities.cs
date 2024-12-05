@@ -7,8 +7,6 @@ namespace Helpers
 {
     public class Utilities : MonoBehaviour
     {
-        [SerializeField] private List<EnemyConfig> enemies;
-
         public static float BASE_MOVE_DURATION = 10f;
     }
 
