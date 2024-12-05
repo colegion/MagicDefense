@@ -37,4 +37,9 @@ namespace Helpers
         Fireball,
         Barrage
     }
+    
+    public class PoolReadyEvent
+    {
+            
+    }
 }

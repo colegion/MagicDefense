@@ -12,12 +12,17 @@ public class Tower : MonoBehaviour, IDamageable
     [SerializeField] private float health;
     private List<Coroutine> _spellRoutines;
 
-    private void Start()
+    private void OnEnable()
     {
-        ConfigureSelf();
+        AddListeners();
     }
 
-    public void ConfigureSelf()
+    private void OnDisable()
+    {
+        RemoveListeners();
+    }
+
+    private void ConfigureSelf(PoolReadyEvent e)
     {
         _spellRoutines = new List<Coroutine>();
         StartSpellFirings();
@@ -76,5 +81,15 @@ public class Tower : MonoBehaviour, IDamageable
     public void Die()
     {
         
+    }
+
+    private void AddListeners()
+    {
+        EventBus.Instance.Register<PoolReadyEvent>(ConfigureSelf);
+    }
+
+    private void RemoveListeners()
+    {
+        EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
     }
 }

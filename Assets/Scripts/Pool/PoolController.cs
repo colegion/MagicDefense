@@ -28,6 +28,7 @@ namespace Pool
                 { SpellType.Barrage, new SpellPool(barragePrefab, poolSize, towerTransform) }
             };
             
+            EventBus.Instance.Trigger(new PoolReadyEvent());
         }
 
         public void AppendActiveObjects(IPoolable poolable)

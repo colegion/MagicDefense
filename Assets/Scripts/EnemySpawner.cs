@@ -10,12 +10,22 @@ public class EnemySpawner : MonoBehaviour
     
     private List<Coroutine> _enemySpawnRoutines = new List<Coroutine>();
 
-    private void Start()
+    private void OnEnable()
+    {
+        AddListeners();
+    }
+
+    private void OnDisable()
+    {
+        RemoveListeners();
+    }
+
+    private void ConfigureSelf(PoolReadyEvent e)
     {
         InitializeEnemyConfigs();
         StartSpawning();
     }
-
+    
     private void InitializeEnemyConfigs()
     {
         foreach (var config in enemies)
@@ -33,7 +43,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
     
-
     private IEnumerator SpawnEnemy(EnemyType type)
     {
         while (!GameController.Instance.IsGameOver())
@@ -56,5 +65,15 @@ public class EnemySpawner : MonoBehaviour
             if(routine != null)
                 StopCoroutine(routine);
         }
+    }
+
+    private void AddListeners()
+    {
+        EventBus.Instance.Register<PoolReadyEvent>(ConfigureSelf);
+    }
+
+    private void RemoveListeners()
+    {
+        EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
     }
 }
