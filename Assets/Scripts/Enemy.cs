@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 
     private EnemyConfig _config;
     private float _currentHealth;
+    private bool _isActivated;
     private bool _selectedAsTarget;
     private bool _hasEnteredScreen = false;
     
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     public void ConfigureSelf(EnemyConfig config)
     {
         _config = config;
+        _isActivated = true;
         enemyVisual.mesh = _config.enemySettings.enemyMesh;
         _currentHealth = _config.enemySettings.health;
         ConfigureScale();
@@ -36,6 +38,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     
     private void Update()
     {
+        if (!_isActivated) return;
         if (IsEnemyOnScreen() && !_hasEnteredScreen)
         {
             _hasEnteredScreen = true;
@@ -95,6 +98,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 
     public void ReturnToPool()
     {
+        _isActivated = false;
         _currentHealth = 0;
         enemyVisual.mesh = null;
         _config = null;

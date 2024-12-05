@@ -37,6 +37,7 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
 
     public virtual void ReturnToPool()
     {
+        gameObject.SetActive(false);
         Config = null;
     }
 }

@@ -48,6 +48,7 @@ public class Tower : MonoBehaviour, IDamageable
         {
             for (int i = 0; i < spawnCount; i++)
             {
+                Debug.Log("spawn count :" + spawnCount);
                 var spell = GameController.Instance.GetSpell(type);
                 spell.ConfigureSelf(config);
                 spell.Move(null);
