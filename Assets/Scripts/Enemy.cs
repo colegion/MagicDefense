@@ -15,7 +15,8 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     private EnemyConfig _config;
     private float _currentHealth;
     private bool _selectedAsTarget;
-
+    private bool _hasEnteredScreen = false;
+    
     public static event Action<Enemy> OnEnteredScreen;
     public static event Action<Enemy> OnDie;
 
@@ -37,6 +38,23 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     private void ConfigureColliderSize()
     {
         enemyCollider.size = _config.enemySettings.colliderSize;
+    }
+    
+    
+
+    private void Update()
+    {
+        if (IsEnemyOnScreen() && !_hasEnteredScreen)
+        {
+            _hasEnteredScreen = true;
+            OnEnteredScreen?.Invoke(this);
+        }
+    }
+
+    private bool IsEnemyOnScreen()
+    {
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
+        return viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -89,6 +107,12 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         _config = null;
         enemyCollider.size = Vector3.one;
         transform.localScale = Vector3.one;
+        OnBecameInvisible();
         gameObject.SetActive(false);
+    }
+    
+    private void OnBecameInvisible()
+    {
+        _hasEnteredScreen = false;
     }
 }
