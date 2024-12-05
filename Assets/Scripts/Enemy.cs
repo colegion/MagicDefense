@@ -40,8 +40,6 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         enemyCollider.size = _config.enemySettings.colliderSize;
     }
     
-    
-
     private void Update()
     {
         if (IsEnemyOnScreen() && !_hasEnteredScreen)
