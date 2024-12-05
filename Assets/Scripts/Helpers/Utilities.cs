@@ -8,7 +8,6 @@ namespace Helpers
     public class Utilities : MonoBehaviour
     {
         [SerializeField] private List<EnemyConfig> enemies;
-        [SerializeField] private List<SpellConfig> spells;
 
         public static float BASE_MOVE_DURATION = 10f;
     }

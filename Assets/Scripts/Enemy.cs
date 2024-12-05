@@ -14,6 +14,10 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 
     private EnemyConfig _config;
     private float _currentHealth;
+    private bool _selectedAsTarget;
+
+    public static event Action<Enemy> OnEnteredScreen;
+    public static event Action<Enemy> OnDie;
 
     public void ConfigureSelf(EnemyConfig config)
     {
@@ -50,8 +54,19 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
             Die();
     }
 
+    public void SetAsSelected(bool value)
+    {
+        _selectedAsTarget = value;
+    }
+
+    public bool GetIsSelected()
+    {
+        return _selectedAsTarget;
+    }
+
     public void Die()
     {
+        OnDie?.Invoke(this);
         ReturnToPool();
     }
 

@@ -31,7 +31,7 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
         throw new NotImplementedException();
     }
 
-    public void ReturnToPool()
+    public virtual void ReturnToPool()
     {
         Config = null;
         spellMesh.mesh = null;

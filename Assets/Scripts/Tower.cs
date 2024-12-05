@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 
 public class Tower : MonoBehaviour, IDamageable
 {
+    [SerializeField] private List<SpellConfig> spells;
     [SerializeField] private float health;
     private bool _isGameOver;
     private List<Coroutine> _spellRoutines;
@@ -23,43 +24,47 @@ public class Tower : MonoBehaviour, IDamageable
     {
         for (int i = 0; i < Enum.GetValues(typeof(SpellType)).Length; i++)
         {
-            Coroutine tempRoutine =
-                StartCoroutine((SpellType)i == SpellType.Fireball ? CastFireBall() : CastBarrage());
+            Coroutine tempRoutine = StartCoroutine(CastSpell((SpellType)i));
             _spellRoutines.Add(tempRoutine);
         }
     }
 
     private IEnumerator CastSpell(SpellType type)
     {
+        var spawnCount = type == SpellType.Fireball ? 1 : GameController.Instance.GetOnScreenEnemies().Count;
+        var config = spells.Find(s => s.spellType == type);
         while (!_isGameOver)
         {
-            
-        }
-        
-        yield return null;
-    }
+            for (int i = 0; i < spawnCount; i++)
+            {
+                var spell = GameController.Instance.GetSpell();
+                spell.ConfigureSelf(config);
+                spell.Move(null);
+            }
 
-    private IEnumerator CastFireBall()
-    {
-        while (!_isGameOver)
-        {
-            //@todo: pool system and casting spells.
-            yield return new WaitForSeconds(1f);
-        }
-    }
-    
-    private IEnumerator CastBarrage()
-    {
-        while (!_isGameOver)
-        {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(config.spellSettings.cooldown);
+            GameController.Instance.ResetEnemySelectedStatus();
         }
     }
 
     public void TakeDamage(float amount)
     {
         health -= amount;
-        if(health <= 0) Die();
+        if (health <= 0)
+        {
+            StopCoroutines();
+            Die();
+            _isGameOver = true;
+        }
+    }
+
+    private void StopCoroutines()
+    {
+        foreach (var routine in _spellRoutines)
+        {
+            if(routine != null)
+                StopCoroutine(routine);
+        }
     }
 
     public void Die()
