@@ -9,6 +9,7 @@ namespace Scriptables
         public float speed;
         public float health;
         public int damage;
+        public Mesh enemyMesh;
         public float defaultSpawnCooldown;
         public float currentSpawnCooldown;
         public Vector3 scale;

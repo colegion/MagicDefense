@@ -11,7 +11,6 @@ using IPoolable = Interfaces.IPoolable;
 
 public class Spell : MonoBehaviour, IPoolable, IMovable
 {
-    [SerializeField] private MeshFilter spellMesh;
     protected SpellConfig Config;
     
     public void ConfigureSelf(SpellConfig config)
@@ -39,6 +38,5 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
     public virtual void ReturnToPool()
     {
         Config = null;
-        spellMesh.mesh = null;
     }
 }

@@ -15,7 +15,6 @@ namespace Helpers
     {
         public EnemyType enemyType;
         public EnemySettings enemySettings;
-        public Mesh enemyMesh;
     }
 
     [Serializable]

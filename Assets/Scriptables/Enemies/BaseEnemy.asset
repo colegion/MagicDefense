@@ -15,6 +15,7 @@ MonoBehaviour:
   speed: 3
   health: 50
   damage: 15
+  enemyMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   defaultSpawnCooldown: 5
   currentSpawnCooldown: 0
   scale: {x: 1, y: 1, z: 1}

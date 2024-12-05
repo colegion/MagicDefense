@@ -90,6 +90,7 @@ public class Tower : MonoBehaviour, IDamageable
 
     private void RemoveListeners()
     {
-        EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
+        if(EventBus.Instance != null)
+            EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
     }
 }

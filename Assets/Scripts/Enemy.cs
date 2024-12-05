@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     public void ConfigureSelf(EnemyConfig config)
     {
         _config = config;
-        enemyVisual.mesh = _config.enemyMesh;
+        enemyVisual.mesh = _config.enemySettings.enemyMesh;
         _currentHealth = _config.enemySettings.health;
         ConfigureScale();
         ConfigureColliderSize();

@@ -111,6 +111,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void RemoveListeners()
     {
-        EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
+        if(EventBus.Instance != null)
+            EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
     }
 }
