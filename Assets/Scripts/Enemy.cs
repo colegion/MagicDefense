@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 {
     [SerializeField] private MeshFilter enemyVisual;
-    [SerializeField] private MeshCollider enemyCollider;
+    [SerializeField] private BoxCollider enemyCollider;
 
     private EnemyConfig _config;
     private float _currentHealth;
@@ -25,11 +25,12 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         enemyVisual.mesh = _config.enemyMesh;
         _currentHealth = _config.enemySettings.health;
         ConfigureColliderSize();
+        EnableObject();
     }
 
     private void ConfigureColliderSize()
     {
-        
+        enemyCollider.size = _config.enemySettings.colliderSize;
     }
 
     private void OnCollisionEnter(Collision other)

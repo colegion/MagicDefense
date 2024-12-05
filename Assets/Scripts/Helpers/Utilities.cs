@@ -25,7 +25,6 @@ namespace Helpers
     {
         public SpellType spellType;
         public SpellSettings spellSettings;
-        public Mesh spellMesh;
     }
 
     public enum EnemyType

@@ -8,5 +8,6 @@ namespace Scriptables
         public float speed;
         public float health;
         public int damage;
+        public Vector3 colliderSize;
     }
 }

@@ -17,7 +17,7 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
     public void ConfigureSelf(SpellConfig config)
     {
         Config = config;
-        spellMesh.mesh = Config.spellMesh;
+        EnableObject();
     }
     
     public virtual void Move(Transform target)
@@ -28,7 +28,7 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
 
     public void EnableObject()
     {
-        throw new NotImplementedException();
+        gameObject.SetActive(true);
     }
 
     public SpellType GetSpellType()

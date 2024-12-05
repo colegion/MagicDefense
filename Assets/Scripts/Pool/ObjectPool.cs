@@ -45,13 +45,13 @@ public abstract class ObjectPool<T> where T : IPoolable
             if (pool.Count > 0)
             {
                 T obj = pool.Dequeue();
-                obj.EnableObject();
+                //obj.EnableObject();
                 return obj;
             }
             else
             {
                 T obj = CreateNewObject();
-                obj.EnableObject();
+                //obj.EnableObject();
                 return obj;
             }
         }
