@@ -6,6 +6,7 @@ namespace Pool
     {
         public SpellPool(GameObject prefab, int initialSize, Transform parent = null) : base(prefab, initialSize, parent)
         {
+            Initialize();
         }
     }
 }

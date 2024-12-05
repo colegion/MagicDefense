@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Helpers;
 using Interfaces;
 using Pool;
 using UnityEngine;
@@ -42,9 +43,9 @@ public class GameController : MonoBehaviour
     }
     
     
-    public Spell GetSpell()
+    public Spell GetSpell(SpellType type)
     {
-        return poolController.GetSpell();
+        return poolController.GetSpell(type);
     }
 
     public List<Enemy> GetOnScreenEnemies()

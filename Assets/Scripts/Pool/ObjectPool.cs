@@ -39,11 +39,6 @@ public abstract class ObjectPool<T> where T : IPoolable
             GameObject obj = Object.Instantiate(prefab, parent);
             return obj.GetComponent<T>();
         }
-        
-        protected virtual T CreateNewObject(int length)
-        {
-            throw new NotImplementedException("CreateNewObject(int length) not implemented in base class.");
-        }
 
         public T GetObject()
         {

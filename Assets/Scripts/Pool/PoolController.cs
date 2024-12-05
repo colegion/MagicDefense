@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Helpers;
 using Interfaces;
 using UnityEngine;
 
@@ -6,21 +7,27 @@ namespace Pool
 {
     public class PoolController : MonoBehaviour
     {
+        [SerializeField] private Transform towerTransform;
         [SerializeField] private GameObject enemyPrefab;
-        [SerializeField] private GameObject spellPrefab;
+        [SerializeField] private GameObject fireBallPrefab;
+        [SerializeField] private GameObject barragePrefab;
 
         [SerializeField] private int poolSize;
 
         private EnemyPool _enemyPool;
-        private SpellPool _spellPool;
-        
+        private Dictionary<SpellType, SpellPool> _spellPools;
         private List<IPoolable> _activeObjects = new List<IPoolable>();
 
         private void Start()
         {
             var poolTransform = transform;
             _enemyPool = new EnemyPool(enemyPrefab, poolSize, poolTransform);
-            _spellPool = new SpellPool(spellPrefab, poolSize, poolTransform);
+            _spellPools = new Dictionary<SpellType, SpellPool>
+            {
+                { SpellType.Fireball, new SpellPool(fireBallPrefab, poolSize, towerTransform) },
+                { SpellType.Barrage, new SpellPool(barragePrefab, poolSize, towerTransform) }
+            };
+            
         }
 
         public void AppendActiveObjects(IPoolable poolable)
@@ -38,14 +45,14 @@ namespace Pool
             _enemyPool.ReturnObject(enemy);
         }
 
-        public Spell GetSpell()
+        public Spell GetSpell(SpellType type)
         {
-            return _spellPool.GetObject();
+            return _spellPools[type].GetObject();
         }
 
-        private void ReturnSpell(Spell spell)
+        private void ReturnSpell(SpellType type, Spell spell)
         {
-            _spellPool.ReturnObject(spell);
+            _spellPools[type].ReturnObject(spell);
         }
         
         public void ClearActiveObjects()
@@ -58,7 +65,7 @@ namespace Pool
                 }
                 else if (obj is Spell spell)
                 {
-                    ReturnSpell(spell);
+                    ReturnSpell(spell.GetSpellType(), spell);
                 }
             }
             _activeObjects.Clear();

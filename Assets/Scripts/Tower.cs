@@ -13,7 +13,6 @@ public class Tower : MonoBehaviour, IDamageable
     private bool _isGameOver;
     private List<Coroutine> _spellRoutines;
     
-    public static event Action OnGameOver;
     public void ConfigureSelf()
     {
         _spellRoutines = new List<Coroutine>();
@@ -37,7 +36,7 @@ public class Tower : MonoBehaviour, IDamageable
         {
             for (int i = 0; i < spawnCount; i++)
             {
-                var spell = GameController.Instance.GetSpell();
+                var spell = GameController.Instance.GetSpell(type);
                 spell.ConfigureSelf(config);
                 spell.Move(null);
             }
@@ -69,6 +68,6 @@ public class Tower : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        OnGameOver?.Invoke();
+        
     }
 }

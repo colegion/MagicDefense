@@ -31,6 +31,11 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
         throw new NotImplementedException();
     }
 
+    public SpellType GetSpellType()
+    {
+        return Config.spellType;
+    }
+
     public virtual void ReturnToPool()
     {
         Config = null;
