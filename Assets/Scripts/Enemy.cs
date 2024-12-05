@@ -26,18 +26,12 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         enemyVisual.mesh = _config.enemySettings.enemyMesh;
         _currentHealth = _config.enemySettings.health;
         ConfigureScale();
-        ConfigureColliderSize();
         EnableObject();
     }
     
     private void ConfigureScale()
     {
         transform.localScale = _config.enemySettings.scale;
-    }
-
-    private void ConfigureColliderSize()
-    {
-        enemyCollider.size = _config.enemySettings.colliderSize;
     }
     
     private void Update()
@@ -59,6 +53,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     {
         if (other.gameObject.TryGetComponent(out Tower tower))
         {
+            Debug.Log("collision");
             tower.TakeDamage(_config.enemySettings.damage);
             Die();
         }

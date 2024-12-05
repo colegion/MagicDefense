@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 5830159240865964514}
   - component: {fileID: 6708647290789791402}
   - component: {fileID: 6161209500865409478}
-  - component: {fileID: 6335085696637251169}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -189,27 +188,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6335085696637251169
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3952347958225282486}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.2, y: 2, z: 1.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7715615176444056695
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8596052220476742239}
   - component: {fileID: 1234860273727441055}
+  - component: {fileID: 5355144761845273362}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -261,6 +240,27 @@ MonoBehaviour:
   - spellType: 1
     spellSettings: {fileID: 11400000, guid: ac05e6173e255454daba255cad8e94bd, type: 2}
   health: 100
+--- !u!65 &5355144761845273362
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7715615176444056695}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2, y: 2, z: 1.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8601278130471876597
 GameObject:
   m_ObjectHideFlags: 0
