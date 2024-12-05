@@ -5,11 +5,12 @@ using DG.Tweening;
 using Helpers;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 {
     [SerializeField] private MeshFilter enemyVisual;
-    [SerializeField] private MeshCollider collider;
+    [SerializeField] private MeshCollider enemyCollider;
 
     private EnemyConfig _config;
     private float _currentHealth;
@@ -51,13 +52,19 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 
     public void Die()
     {
-        ResetSelf();
+        ReturnToPool();
     }
 
-    public void ResetSelf()
+    public void EnableObject()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void ReturnToPool()
     {
         _currentHealth = 0;
         enemyVisual.mesh = null;
         _config = null;
+        gameObject.SetActive(false);
     }
 }

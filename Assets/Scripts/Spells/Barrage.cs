@@ -15,7 +15,7 @@ namespace Spells
                 if (target.gameObject.TryGetComponent(out Enemy enemy))
                 {
                     enemy.TakeDamage(Config.spellSettings.damage);
-                    ResetSelf();
+                    ReturnToPool();
                 }
             });
         }

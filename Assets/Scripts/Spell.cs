@@ -26,7 +26,12 @@ public class Spell : MonoBehaviour, IPoolable, IMovable
         transform.DOMove(target.position, duration).SetEase(Ease.Linear);
     }
 
-    public void ResetSelf()
+    public void EnableObject()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ReturnToPool()
     {
         Config = null;
         spellMesh.mesh = null;

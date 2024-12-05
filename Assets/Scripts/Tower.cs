@@ -29,6 +29,16 @@ public class Tower : MonoBehaviour, IDamageable
         }
     }
 
+    private IEnumerator CastSpell(SpellType type)
+    {
+        while (!_isGameOver)
+        {
+            
+        }
+        
+        yield return null;
+    }
+
     private IEnumerator CastFireBall()
     {
         while (!_isGameOver)
