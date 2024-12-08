@@ -5,6 +5,7 @@ using DG.Tweening;
 using Helpers;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class Tower : MonoBehaviour, IDamageable
@@ -105,7 +106,10 @@ public class Tower : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        Debug.Log("Died");
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            SceneManager.LoadScene("Game");
+        });
     }
 
     private void AddListeners()

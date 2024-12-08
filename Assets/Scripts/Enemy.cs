@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     private bool IsEnemyOnScreen()
     {
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
-        return viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1;
+        return viewportPos.x is >= 0 and <= 1 && viewportPos.y is >= 0 and <= 1;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -84,10 +84,10 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     public void AnimateHit(Action onComplete)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(transform.DOShakeScale(0.45f, 0.25f).SetEase(Ease.OutCubic));
+        sequence.Append(transform.DOShakeScale(0.45f, 0.15f).SetEase(Ease.OutCubic));
         var material = enemyRenderer.material;
-        sequence.Join(material.DOColor(Color.red, 0.3f).SetEase(Ease.OutCubic));
-        sequence.Append(material.DOColor(Color.white, 0.15f).SetEase(Ease.OutCubic));
+        sequence.Join(material.DOColor(Color.red, 0.1f).SetEase(Ease.OutCubic));
+        sequence.Append(material.DOColor(Color.white, 0.05f).SetEase(Ease.OutCubic));
         sequence.OnComplete(() =>
         {
             onComplete?.Invoke();
@@ -111,7 +111,6 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     
     public void Die()
     {
-        transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.OutBounce);
         OnDie?.Invoke(this);
         ReturnToPool();
     }
