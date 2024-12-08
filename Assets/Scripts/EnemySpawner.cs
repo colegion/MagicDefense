@@ -74,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
         float screenBottom = bottomLeft.z;
         float screenTop = topRight.z;
         
-        float offset = 2f;
+        float offset = 10f;
 
         // Randomly choose an edge: 0 = left, 1 = right, 2 = top, 3 = bottom
         int edge = Random.Range(0, 4);

@@ -234,6 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df46503293f228841b6afb49d766dfa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerHead: {fileID: 323999791508702032}
+  towerBody: {fileID: 3952347958225282486}
+  bodyRenderer: {fileID: 6161209500865409478}
   spells:
   - spellType: 0
     spellSettings: {fileID: 11400000, guid: 9e30af5bbec3eda448a144eeeed413e9, type: 2}

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a84b05744d2ed444b20301037417cc7, type: 3}
   m_Name: Barrage
   m_EditorClassIdentifier: 
-  speed: 2.5
-  cooldown: 5
+  speed: 50
+  cooldown: 1
   damage: 20

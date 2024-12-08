@@ -10,6 +10,7 @@ using UnityEngine.Serialization;
 public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 {
     [SerializeField] private MeshFilter enemyVisual;
+    [SerializeField] private MeshRenderer enemyRenderer;
     [SerializeField] private BoxCollider enemyCollider;
 
     private EnemyConfig _config;
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         _config = config;
         _isActivated = true;
         enemyVisual.mesh = _config.enemySettings.enemyMesh;
+        enemyRenderer.material = _config.enemySettings.enemyMaterial;
         _currentHealth = _config.enemySettings.health;
         ConfigureScale();
         EnableObject();
@@ -70,9 +72,26 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
 
     public void TakeDamage(float amount)
     {
+        if (_currentHealth <= 0) return;
         _currentHealth -= amount;
-        if (_currentHealth <= 0)
-            Die();
+        AnimateHit(() =>
+        {
+            if (_currentHealth <= 0)
+                Die();
+        });
+    }
+
+    public void AnimateHit(Action onComplete)
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOShakeScale(0.45f, 0.25f).SetEase(Ease.OutCubic));
+        var material = enemyRenderer.material;
+        sequence.Join(material.DOColor(Color.red, 0.3f).SetEase(Ease.OutCubic));
+        sequence.Append(material.DOColor(Color.white, 0.15f).SetEase(Ease.OutCubic));
+        sequence.OnComplete(() =>
+        {
+            onComplete?.Invoke();
+        });
     }
 
     public void SetAsSelected(bool value)
@@ -85,8 +104,14 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         return _selectedAsTarget;
     }
 
+    public bool HasDied()
+    {
+        return _currentHealth <= 0;
+    }
+    
     public void Die()
     {
+        transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.OutBounce);
         OnDie?.Invoke(this);
         ReturnToPool();
     }
@@ -101,6 +126,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
         _isActivated = false;
         _currentHealth = 0;
         enemyVisual.mesh = null;
+        enemyRenderer.material = null;
         _config = null;
         enemyCollider.size = Vector3.one;
         transform.localScale = Vector3.one;

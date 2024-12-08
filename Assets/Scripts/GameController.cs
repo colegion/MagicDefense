@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
     {
         foreach (var enemy in _onScreenEnemies)
         {
-            if (!enemy.GetIsSelected())
+            if (!enemy.GetIsSelected() && !enemy.HasDied())
             {
                 enemy.SetAsSelected(true);
                 return enemy;

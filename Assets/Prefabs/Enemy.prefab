@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyVisual: {fileID: 7223336548803229543}
+  enemyRenderer: {fileID: 3068502369994661553}
   enemyCollider: {fileID: 6373828457721704945}
 --- !u!65 &6373828457721704945
 BoxCollider:

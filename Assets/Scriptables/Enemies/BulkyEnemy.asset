@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e9119df3a66344bbf371b63eeb04f, type: 3}
   m_Name: BulkyEnemy
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 0.65
   health: 100
   damage: 35
   enemyMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  defaultSpawnCooldown: 7
-  currentSpawnCooldown: 0
+  enemyMaterial: {fileID: 2100000, guid: e50a83ac5b708124c9a5588da8e95e0d, type: 2}
+  defaultSpawnCooldown: 10
+  currentSpawnCooldown: 10
   scale: {x: 2, y: 1, z: 2}
   colliderSize: {x: 2, y: 1, z: 2}

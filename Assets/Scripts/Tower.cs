@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Helpers;
 using Interfaces;
 using UnityEngine;
@@ -8,6 +9,9 @@ using UnityEngine.Serialization;
 
 public class Tower : MonoBehaviour, IDamageable
 {
+    [SerializeField] private GameObject towerHead;
+    [SerializeField] private GameObject towerBody;
+    [SerializeField] private MeshRenderer bodyRenderer;
     [SerializeField] private List<SpellConfig> spells;
     [SerializeField] private float health;
     private List<Coroutine> _spellRoutines;
@@ -61,13 +65,31 @@ public class Tower : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        if (health <= 0) return;
         health -= amount;
-        if (health <= 0)
+        AnimateHit(() =>
         {
-            StopCoroutines();
-            Die();
-            GameController.Instance.SetGameOver(true);
-        }
+            if (health <= 0)
+            {
+                StopCoroutines();
+                Die();
+                GameController.Instance.SetGameOver(true);
+            }
+        });
+    }
+
+    public void AnimateHit(Action onComplete)
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(towerBody.transform.DOShakeScale(0.3f, 0.5f).SetEase(Ease.OutBounce));
+        var material = bodyRenderer.material;
+        sequence.Join(material.DOColor(Color.red, 0.3f).SetEase(Ease.Flash));
+        sequence.Append(towerHead.transform.DOJump(transform.localPosition + Vector3.up, .2f, 1, 0.3f));
+        sequence.Join(material.DOColor(Color.white, 0.2f).SetEase(Ease.Flash));
+        sequence.OnComplete(() =>
+        {
+            onComplete?.Invoke();
+        });
     }
 
     private void StopCoroutines()
@@ -81,7 +103,7 @@ public class Tower : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        
+        Debug.Log("Died");
     }
 
     private void AddListeners()
