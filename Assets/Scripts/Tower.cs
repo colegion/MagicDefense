@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour, IDamageable
     [SerializeField] private GameObject towerBody;
     [SerializeField] private MeshRenderer bodyRenderer;
     [SerializeField] private List<SpellConfig> spells;
-    [SerializeField] private float health;
+    private float _health;
     private List<Coroutine> _spellRoutines;
 
     private void OnEnable()
@@ -28,6 +28,7 @@ public class Tower : MonoBehaviour, IDamageable
 
     private void ConfigureSelf(PoolReadyEvent e)
     {
+        _health = Utilities.TOWER_HEALTH;
         _spellRoutines = new List<Coroutine>();
         StartSpellFirings();
     }
@@ -65,11 +66,12 @@ public class Tower : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        if (health <= 0) return;
-        health -= amount;
+        if (_health <= 0) return;
+        _health -= amount;
+        EventBus.Instance.Trigger(new DamageTakenEvent(_health));
         AnimateHit(() =>
         {
-            if (health <= 0)
+            if (_health <= 0)
             {
                 StopCoroutines();
                 Die();

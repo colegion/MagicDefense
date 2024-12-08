@@ -8,6 +8,7 @@ namespace Helpers
     public class Utilities : MonoBehaviour
     {
         public static float BASE_MOVE_DURATION = 10f;
+        public static int TOWER_HEALTH = 100;
     }
 
     [Serializable]
@@ -40,5 +41,14 @@ namespace Helpers
     public class PoolReadyEvent
     {
             
+    }
+
+    public class DamageTakenEvent
+    {
+        public float newHealth;
+        public DamageTakenEvent(float newHealth)
+        {
+            this.newHealth = newHealth;
+        }
     }
 }
