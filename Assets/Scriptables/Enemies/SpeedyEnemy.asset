@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e9119df3a66344bbf371b63eeb04f, type: 3}
   m_Name: SpeedyEnemy
   m_EditorClassIdentifier: 
-  speed: 1.5
+  speed: 1
   health: 35
-  damage: 12
+  damage: 3
   enemyMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   enemyMaterial: {fileID: 2100000, guid: b3d5cca1c9135554385b01668660cd5f, type: 2}
   defaultSpawnCooldown: 4

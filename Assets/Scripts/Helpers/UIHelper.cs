@@ -55,8 +55,11 @@ namespace Helpers
 
         private void RemoveListeners()
         {
-            EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
-            EventBus.Instance.Unregister<DamageTakenEvent>(OnTowerTookDamage);
+            if (EventBus.Instance != null)
+            {
+                EventBus.Instance.Unregister<PoolReadyEvent>(ConfigureSelf);
+                EventBus.Instance.Unregister<DamageTakenEvent>(OnTowerTookDamage);
+            }
         }
     }
 }
