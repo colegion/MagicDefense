@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour, IMovable, IDamageable, IPoolable
     private bool IsEnemyOnScreen()
     {
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
-        return viewportPos.x is >= 0 and <= 1 && viewportPos.y is >= 0 and <= 1;
+        return viewportPos.x is >= .02f and <= .98f && viewportPos.y is >= .02f and <= .98f;
     }
 
     private void OnCollisionEnter(Collision other)
