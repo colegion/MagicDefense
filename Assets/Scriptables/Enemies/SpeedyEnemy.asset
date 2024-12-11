@@ -19,5 +19,5 @@ MonoBehaviour:
   enemyMaterial: {fileID: 2100000, guid: b3d5cca1c9135554385b01668660cd5f, type: 2}
   defaultSpawnCooldown: 4
   currentSpawnCooldown: 4
-  scale: {x: 0.8, y: 0.8, z: 0.8}
-  colliderSize: {x: 0.8, y: 0.8, z: 0.8}
+  scale: {x: 0.5, y: 0.5, z: 0.5}
+  colliderSize: {x: 0.5, y: 0.5, z: 0.5}
